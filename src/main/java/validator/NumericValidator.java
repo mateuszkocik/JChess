@@ -18,7 +18,7 @@ public class NumericValidator implements CommandValidator{
         }catch(NumberFormatException e){
             return false;
         }
-        return to <= value && value <= to;
+        return from <= value && value <= to;
     }
 
     @Override
