@@ -11,7 +11,6 @@ public class ColorFormatter{
     private FontColor textColor;
     private FontColor errorColor;
 
-    private final String RESET = "\033[0m";
     private final String colorsFileName = "color.settings";
 
     public ColorFormatter(){
@@ -32,9 +31,39 @@ public class ColorFormatter{
         System.out.print(backgroundColor);
     }
 
+    public String getColorText(String text, FontColor fontColor){
+        StringBuilder sb = new StringBuilder(fontColor.toString());
+        sb.append(backgroundColor.toString());
+        sb.append(text);
+        appendDefaultColors(sb);
+
+        return sb.toString();
+    }
+
+    public String getTextWithBackground(String text, BackgroundColor backgroundColor){
+        StringBuilder sb = new StringBuilder(backgroundColor.toString());
+        sb.append(text);
+        appendDefaultColors(sb);
+
+        return sb.toString();
+    }
+
+    public String getColorTextWithBackground(String text, FontColor fontColor, BackgroundColor backgroundColor){
+        StringBuilder sb = new StringBuilder(fontColor.toString());
+        sb.append(backgroundColor.toString());
+        sb.append(text);
+        appendDefaultColors(sb);
+
+        return sb.toString();
+    }
+
+    private void appendDefaultColors(StringBuilder sb){
+        sb.append(textColor.toString());
+        sb.append(backgroundColor.toString());
+    }
+
     private String getValueFromProperties(String key){
         return colorProperties.getProperty(key);
     }
-
 
 }
