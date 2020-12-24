@@ -1,6 +1,6 @@
-package colours;
+package colors;
 
-public enum FontColour{
+public enum FontColor{
     BLACK("\033[0;30m"),
     RED("\033[0;31m"),
     GREEN("\033[0;32m"),
@@ -12,7 +12,7 @@ public enum FontColour{
 
     String code;
 
-    FontColour(String code){
+    FontColor(String code){
         this.code = code;
     }
 
