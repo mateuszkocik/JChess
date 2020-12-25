@@ -2,8 +2,8 @@ package validator;
 
 public class NumericValidator implements CommandValidator{
 
-    private int from;
-    private int to;
+    private final int from;
+    private final int to;
 
     public NumericValidator(int from, int to){
         this.from = from;
@@ -12,7 +12,7 @@ public class NumericValidator implements CommandValidator{
 
     @Override
     public boolean validate(String command){
-        int value = 0;
+        int value;
         try{
             value = Integer.parseInt(command);
         }catch(NumberFormatException e){
@@ -22,7 +22,8 @@ public class NumericValidator implements CommandValidator{
     }
 
     @Override
-    public void displayError(){
-        System.out.println("Wrong command, choose number from " + from + " to " + to + "!");
+    public String getError(){
+        return "Wrong command, choose number from " + from + " to " + to + "!";
     }
+
 }

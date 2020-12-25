@@ -16,8 +16,7 @@ public enum FontColor{
         this.code = code;
     }
 
-    @Override
-    public String toString(){
+    public String getCode(){
         return code;
     }
 }

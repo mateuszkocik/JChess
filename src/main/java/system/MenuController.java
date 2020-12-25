@@ -1,7 +1,10 @@
 package system;
 
+import colors.ColorFormatter;
+import command.Command;
 import menu.Menu;
 import menu.WelcomeMenu;
+import validator.CommandValidator;
 
 import java.util.Scanner;
 
@@ -10,10 +13,15 @@ public class MenuController{
     private static MenuController instance;
     private final Scanner scanner;
     private Menu currentMenu;
+    private CommandValidator currentValidator;
+    private final ColorFormatter colorFormatter;
 
     public MenuController(){
-        scanner = new Scanner(System.in);
-        currentMenu = new WelcomeMenu();
+        this.scanner = new Scanner(System.in);
+        this.currentMenu = new WelcomeMenu();
+        this.currentValidator = currentMenu.getCommandValidator();
+        this.colorFormatter = new ColorFormatter();
+        colorFormatter.displayDefaultColors();
         changeMenu(currentMenu);
     }
 
@@ -23,26 +31,39 @@ public class MenuController{
     }
 
     public void changeMenu(Menu menu){
-        clearScreen();
         currentMenu = menu;
-        menu.showContent();
-        menu.processCommand(getCommand());
+        currentValidator = menu.getCommandValidator();
+        showCurrentMenu();
+        getCommand().execute();
     }
 
-    public void displayCurrentMenuWithError(){
+    private void showCurrentMenu(){
         clearScreen();
         currentMenu.showContent();
-        System.out.println("\033[0;91m" + "Wrong argument!" + "\033[0;91m");
-        currentMenu.processCommand(getCommand());
     }
 
-    private String getCommand(){
+    private Command getCommand(){
+        String terminalCommand = validateTerminalCommand();
+        return currentMenu.getCommand(terminalCommand);
+    }
+
+    private String validateTerminalCommand(){
+        String terminalCommand = getCommandFromTerminal();
+        while(!currentValidator.validate(terminalCommand)){
+            showCurrentMenu();
+            String errorMessage = currentValidator.getError();
+            System.out.println(colorFormatter.getColoredError(errorMessage));
+        }
+        return terminalCommand;
+    }
+
+    private String getCommandFromTerminal(){
         var command = scanner.nextLine();
         scanner.reset();
         return command;
     }
 
-    public void clearScreen() {
+    private void clearScreen(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }

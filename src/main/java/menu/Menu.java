@@ -1,18 +1,13 @@
 package menu;
 
-import system.MenuController;
+import command.Command;
+import validator.CommandValidator;
 
 public interface Menu{
+
     void showContent();
-    void processCommand(String command);
 
-    default void displayError(){
-        MenuController.getInstance().displayCurrentMenuWithError();
-    }
+    Command getCommand(String command);
 
-    default void changeMenu(Menu menu){
-        var menuController = MenuController.getInstance();
-        menuController.changeMenu(menu);
-    }
-
+    CommandValidator getCommandValidator();
 }

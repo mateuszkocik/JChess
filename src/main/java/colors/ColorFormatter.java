@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class ColorFormatter{
 
-    private Properties colorProperties;
+    private final Properties colorProperties;
 
     private BackgroundColor backgroundColor;
     private FontColor textColor;
@@ -31,9 +31,9 @@ public class ColorFormatter{
         System.out.print(backgroundColor);
     }
 
-    public String getColorText(String text, FontColor fontColor){
-        StringBuilder sb = new StringBuilder(fontColor.toString());
-        sb.append(backgroundColor.toString());
+    public String getColoredText(String text, FontColor fontColor){
+        StringBuilder sb = new StringBuilder(fontColor.getCode());
+        sb.append(backgroundColor.getCode());
         sb.append(text);
         appendDefaultColors(sb);
 
@@ -41,25 +41,29 @@ public class ColorFormatter{
     }
 
     public String getTextWithBackground(String text, BackgroundColor backgroundColor){
-        StringBuilder sb = new StringBuilder(backgroundColor.toString());
+        StringBuilder sb = new StringBuilder(backgroundColor.getCode());
         sb.append(text);
         appendDefaultColors(sb);
 
         return sb.toString();
     }
 
-    public String getColorTextWithBackground(String text, FontColor fontColor, BackgroundColor backgroundColor){
-        StringBuilder sb = new StringBuilder(fontColor.toString());
-        sb.append(backgroundColor.toString());
+    public String getColoredTextWithBackground(String text, FontColor fontColor, BackgroundColor backgroundColor){
+        StringBuilder sb = new StringBuilder(fontColor.getCode());
+        sb.append(backgroundColor.getCode());
         sb.append(text);
         appendDefaultColors(sb);
 
         return sb.toString();
+    }
+
+    public String getColoredError(String errorText){
+        return getColoredText(errorText,errorColor);
     }
 
     private void appendDefaultColors(StringBuilder sb){
-        sb.append(textColor.toString());
-        sb.append(backgroundColor.toString());
+        sb.append(textColor.getCode());
+        sb.append(backgroundColor.getCode());
     }
 
     private String getValueFromProperties(String key){
