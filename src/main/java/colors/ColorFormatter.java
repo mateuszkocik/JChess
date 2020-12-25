@@ -27,8 +27,8 @@ public class ColorFormatter{
     }
 
     public void displayDefaultColors(){
-        System.out.print(textColor);
-        System.out.print(backgroundColor);
+        System.out.print(textColor.getCode());
+        System.out.print(backgroundColor.getCode());
     }
 
     public String getColoredText(String text, FontColor fontColor){

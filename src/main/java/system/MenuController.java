@@ -22,44 +22,47 @@ public class MenuController{
         this.currentValidator = currentMenu.getCommandValidator();
         this.colorFormatter = new ColorFormatter();
         colorFormatter.displayDefaultColors();
-        changeMenu(currentMenu);
     }
 
     public static MenuController getInstance(){
-        if(instance == null) instance = new MenuController();
+        if(instance == null){
+            instance = new MenuController();
+            instance.changeMenu(instance.currentMenu);
+        }
         return instance;
     }
 
     public void changeMenu(Menu menu){
-        currentMenu = menu;
-        currentValidator = menu.getCommandValidator();
+        instance.currentMenu = menu;
+        instance.currentValidator = menu.getCommandValidator();
         showCurrentMenu();
         getCommand().execute();
     }
 
     private void showCurrentMenu(){
         clearScreen();
-        currentMenu.showContent();
+        instance.currentMenu.showContent();
     }
 
     private Command getCommand(){
         String terminalCommand = validateTerminalCommand();
-        return currentMenu.getCommand(terminalCommand);
+        return instance.currentMenu.getCommand(terminalCommand);
     }
 
     private String validateTerminalCommand(){
         String terminalCommand = getCommandFromTerminal();
-        while(!currentValidator.validate(terminalCommand)){
+        while(!instance.currentValidator.validate(terminalCommand)){
             showCurrentMenu();
-            String errorMessage = currentValidator.getError();
-            System.out.println(colorFormatter.getColoredError(errorMessage));
+            String errorMessage = instance.currentValidator.getError();
+            System.out.println(instance.colorFormatter.getColoredError(errorMessage));
+            terminalCommand = getCommandFromTerminal();
         }
         return terminalCommand;
     }
 
     private String getCommandFromTerminal(){
-        var command = scanner.nextLine();
-        scanner.reset();
+        var command = instance.scanner.nextLine();
+        instance.scanner.reset();
         return command;
     }
 
