@@ -5,6 +5,7 @@ import colors.ColorFormatter;
 import colors.FontColor;
 import command.Command;
 import system.MenuController;
+import validator.ColorChangeValidator;
 import validator.CommandValidator;
 
 public class ColorSettingsMenu implements Menu{
@@ -43,6 +44,6 @@ public class ColorSettingsMenu implements Menu{
 
     @Override
     public CommandValidator getCommandValidator(){
-        return null;
+        return new ColorChangeValidator();
     }
 }
