@@ -3,13 +3,14 @@ package colors;
 import java.io.IOException;
 import java.util.Properties;
 
+import static colors.ColoredElement.*;
+
 public class ColorFormatter{
 
     private final Properties colorProperties;
-
-    private BackgroundColor backgroundColor;
     private FontColor textColor;
     private FontColor errorColor;
+    private BackgroundColor backgroundColor;
 
     private final String colorsFileName = "color.settings";
 
@@ -21,9 +22,9 @@ public class ColorFormatter{
             System.err.println("Problem with color configuration file");
             System.exit(1);
         }
-        this.backgroundColor = BackgroundColor.valueOf(getValueFromProperties("background"));
-        this.textColor = FontColor.valueOf(getValueFromProperties("text"));
-        this.errorColor = FontColor.valueOf(getValueFromProperties("error"));
+        this.textColor = FontColor.valueOf(getValueFromProperties(TEXT));
+        this.errorColor = FontColor.valueOf(getValueFromProperties(ERROR));
+        this.backgroundColor = BackgroundColor.valueOf(getValueFromProperties(BACKGROUND));
     }
 
     public void displayDefaultColors(){
@@ -66,8 +67,8 @@ public class ColorFormatter{
         sb.append(backgroundColor.getCode());
     }
 
-    private String getValueFromProperties(String key){
-        return colorProperties.getProperty(key);
+    private String getValueFromProperties(ColoredElement property){
+        return colorProperties.getProperty(property.toString());
     }
 
 }
