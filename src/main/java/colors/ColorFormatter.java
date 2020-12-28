@@ -1,6 +1,6 @@
 package colors;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 import static colors.ColoredElement.*;
@@ -8,67 +8,109 @@ import static colors.ColoredElement.*;
 public class ColorFormatter{
 
     private final Properties colorProperties;
-    private FontColor textColor;
-    private FontColor errorColor;
-    private BackgroundColor backgroundColor;
-
-    private final String colorsFileName = "color.settings";
+    private final String colorFileName = ".jchess-color-settings";
 
     public ColorFormatter(){
         this.colorProperties = new Properties();
         try{
-            this.colorProperties.load(getClass().getClassLoader().getResourceAsStream(colorsFileName));
-        }catch(IOException | NullPointerException e){
-            System.err.println("Problem with color configuration file");
-            System.exit(1);
+            loadColorProperties();
+        }catch(Exception e){
+            System.err.println("Problem with opening color configuration file");
+            e.printStackTrace();
         }
-        this.textColor = FontColor.valueOf(getValueFromProperties(TEXT));
-        this.errorColor = FontColor.valueOf(getValueFromProperties(ERROR));
-        this.backgroundColor = BackgroundColor.valueOf(getValueFromProperties(BACKGROUND));
     }
 
-    public void displayDefaultColors(){
-        System.out.print(textColor.getCode());
-        System.out.print(backgroundColor.getCode());
+    private void loadColorProperties() throws Exception{
+        InputStream propFileIS;
+        try{
+            propFileIS = new FileInputStream(new File(System.getProperty("user.home"), colorFileName));
+        }catch(IOException e){
+            propFileIS = getClass().getClassLoader().getResourceAsStream("color.settings");
+        }
+        this.colorProperties.load(propFileIS);
     }
 
-    public String getColoredText(String text, FontColor fontColor){
-        StringBuilder sb = new StringBuilder(fontColor.getCode());
-        sb.append(backgroundColor.getCode());
-        sb.append(text);
+    public String getColoredText(String text, Color color){
+        StringBuilder sb = new StringBuilder()
+                .append(getFontCode(color))
+                .append(getCodeFromProp(BACKGROUND))
+                .append(text);
         appendDefaultColors(sb);
 
         return sb.toString();
     }
 
-    public String getTextWithBackground(String text, BackgroundColor backgroundColor){
-        StringBuilder sb = new StringBuilder(backgroundColor.getCode());
-        sb.append(text);
+    public String getTextWithBackground(String text, Color color){
+        StringBuilder sb = new StringBuilder()
+                .append(getBackgroundCode(color))
+                .append(text);
         appendDefaultColors(sb);
 
         return sb.toString();
     }
 
-    public String getColoredTextWithBackground(String text, FontColor fontColor, BackgroundColor backgroundColor){
-        StringBuilder sb = new StringBuilder(fontColor.getCode());
-        sb.append(backgroundColor.getCode());
-        sb.append(text);
+    public String getColoredTextWithBackground(String text, Color fontColor, Color backgroundColor){
+        StringBuilder sb = new StringBuilder()
+                .append(getFontCode(fontColor))
+                .append(getBackgroundCode(backgroundColor))
+                .append(text);
         appendDefaultColors(sb);
 
         return sb.toString();
     }
 
     public String getColoredError(String errorText){
-        return getColoredText(errorText,errorColor);
+        return getColoredText(errorText, Color.valueOf(getValueFromProperties(ERROR)));
+    }
+
+    private String getFontCode(Color color){
+        return FontColor.valueOf(color.toString()).getCode();
+    }
+
+    private String getBackgroundCode(Color color){
+        return BackgroundColor.valueOf(color.toString()).getCode();
+    }
+
+    private String getCodeFromProp(ColoredElement element){
+        String value = getValueFromProperties(element);
+        switch(element){
+            case TEXT:
+            case ERROR:
+                return FontColor.valueOf(value).getCode();
+            case BACKGROUND:
+                return BackgroundColor.valueOf(value).getCode();
+        }
+        return null;
+    }
+
+    private String getValueFromProperties(ColoredElement element){
+        return colorProperties.getProperty(element.toString());
+    }
+
+    public void displayDefaultColors(){
+        System.out.print(getCodeFromProp(TEXT));
+        System.out.print(getCodeFromProp(BACKGROUND));
     }
 
     private void appendDefaultColors(StringBuilder sb){
-        sb.append(textColor.getCode());
-        sb.append(backgroundColor.getCode());
+        sb
+                .append(getCodeFromProp(TEXT))
+                .append(getCodeFromProp(BACKGROUND));
     }
 
-    private String getValueFromProperties(ColoredElement property){
-        return colorProperties.getProperty(property.toString());
+    public void setElementColor(ColoredElement element, Color color){
+        colorProperties.setProperty(element.toString(), color.toString());
+        saveInSettingsFile();
     }
+
+    private void saveInSettingsFile(){
+        try{
+            colorProperties.store(new FileOutputStream(new File(System.getProperty("user.home"), colorFileName)), null);
+        }catch(IOException e){
+            System.err.println("Problem with saving color configuration file");
+            e.printStackTrace();
+        }
+    }
+
 
 }

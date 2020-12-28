@@ -1,8 +1,7 @@
 package menu;
 
-import colors.BackgroundColor;
-import colors.ColorFormatter;
-import colors.FontColor;
+import colors.*;
+import command.ChangeColorCommand;
 import command.Command;
 import system.MenuController;
 import validator.ColorChangeValidator;
@@ -30,16 +29,19 @@ public class ColorSettingsMenu implements Menu{
         int loremLen = lorem.length();
         String formatString = "%-15s\t%-" + loremLen + "s\t%-" + loremLen + "s\n";
         System.out.printf(formatString + '\n', "color", "text", "background");
-        for(FontColor color : FontColor.values()){
+        for(Color color : Color.values()){
             String coloredText = colorFormatter.getColoredText(lorem, color);
-            String backgroundColoredText = colorFormatter.getTextWithBackground(lorem, BackgroundColor.valueOf(color.toString()));
+            String backgroundColoredText = colorFormatter.getTextWithBackground(lorem, color);
             System.out.printf(formatString, color, coloredText, backgroundColoredText);
         }
     }
 
     @Override
     public Command getCommand(String command){
-        return null;
+        var commandParts = command.split(" ");
+        ColoredElement coloredElement = ColoredElement.valueOf(commandParts[0].toUpperCase());
+        Color color = Color.valueOf(commandParts[1].toUpperCase());
+        return new ChangeColorCommand(coloredElement, color);
     }
 
     @Override

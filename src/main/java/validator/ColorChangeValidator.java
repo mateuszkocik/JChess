@@ -1,24 +1,33 @@
 package validator;
 
-import colors.FontColor;
+import colors.Color;
+import colors.ColoredElement;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class ColorChangeValidator implements CommandValidator{
 
     @Override
     public boolean validate(String command){
         var parts = command.split(" ");
-        return parts.length == 2 && stringIsProperty(parts[0]) && stringIsColor(parts[1]);
+        return parts.length == 2 && stringIsElement(parts[0]) && stringIsColor(parts[1]);
     }
 
-    private boolean stringIsProperty(String s){
-        s = s.toLowerCase();
-        return s.equals("text") || s.equals("background") || s.equals("error");
+    private boolean stringIsElement(String s){
+        return Arrays
+                .stream(ColoredElement.values())
+                .map(ColoredElement::toString)
+                .collect(Collectors.toList())
+                .contains(s.toUpperCase());
     }
 
     private boolean stringIsColor(String s){
-        var colorsList = FontColor.values();
-        for(FontColor color : colorsList) if(s.toUpperCase().equals(color.toString())) return true;
-        return false;
+        return Arrays
+                .stream(Color.values())
+                .map(Color::toString)
+                .collect(Collectors.toList())
+                .contains(s.toUpperCase());
     }
 
     @Override
