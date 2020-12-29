@@ -1,73 +1,108 @@
 package system;
 
 import colors.ColorFormatter;
+import command.BackCommand;
 import command.Command;
+import command.QuitCommand;
 import menu.Menu;
 import menu.WelcomeMenu;
 import validator.CommandValidator;
+import validator.GlobalCommandValidator;
 
 import java.util.Scanner;
+import java.util.Stack;
 
 public class MenuController{
 
     private static MenuController instance;
+
     private final Scanner scanner;
     private Menu currentMenu;
     private CommandValidator currentValidator;
     private final ColorFormatter colorFormatter;
+    private Stack<Menu> menuHistory;
 
     public MenuController(){
         this.scanner = new Scanner(System.in);
-        this.currentMenu = new WelcomeMenu();
-        this.currentValidator = currentMenu.getCommandValidator();
         this.colorFormatter = new ColorFormatter();
         colorFormatter.displayDefaultColors();
+        this.menuHistory = new Stack<>();
     }
 
     public static MenuController getInstance(){
         if(instance == null){
             instance = new MenuController();
-            instance.changeMenu(instance.currentMenu);
+            instance.changeMenu(new WelcomeMenu());
+            instance.progress();
         }
         return instance;
     }
 
+    private void progress(){
+        while(true){
+            showCurrentMenu();
+            getCommand().execute();
+        }
+    }
+
     public void changeMenu(Menu menu){
-        instance.currentMenu = menu;
-        instance.currentValidator = menu.getCommandValidator();
-        showCurrentMenu();
-        getCommand().execute();
+        menuHistory.push(currentMenu);
+        currentMenu = menu;
+        currentValidator = menu.getCommandValidator();
     }
 
     private void showCurrentMenu(){
         clearScreen();
-        instance.currentMenu.showContent();
+        currentMenu.showContent();
     }
 
     private Command getCommand(){
         String terminalCommand = validateTerminalCommand();
-        return instance.currentMenu.getCommand(terminalCommand);
+        if(commandIsGlobal(terminalCommand)) return getGlobalCommand(terminalCommand);
+        return currentMenu.getCommand(terminalCommand);
     }
 
     private String validateTerminalCommand(){
         String terminalCommand = getCommandFromTerminal();
-        while(!instance.currentValidator.validate(terminalCommand)){
+        while(!(currentValidator.validate(terminalCommand) || commandIsGlobal(terminalCommand))){
             showCurrentMenu();
-            String errorMessage = instance.currentValidator.getError();
-            System.out.println(instance.colorFormatter.getColoredError(errorMessage));
+            String errorMessage = currentValidator.getError();
+            System.out.println(colorFormatter.getColoredError(errorMessage));
             terminalCommand = getCommandFromTerminal();
         }
         return terminalCommand;
     }
 
-    private String getCommandFromTerminal(){
-        var command = instance.scanner.nextLine();
-        instance.scanner.reset();
+    public String getCommandFromTerminal(){
+        var command = scanner.nextLine();
+        scanner.reset();
         return command;
+    }
+
+    private Command getGlobalCommand(String terminalCommand){
+        switch(terminalCommand){
+            case "quit":
+                return new QuitCommand();
+            case "back":
+                return new BackCommand();
+        }
+        return null;
+    }
+
+    boolean commandIsGlobal(String command){
+        return new GlobalCommandValidator().validate(command);
+    }
+
+    public Menu popLatestMenu(){
+        return menuHistory.pop();
     }
 
     private void clearScreen(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public ColorFormatter getColorFormatter(){
+        return colorFormatter;
     }
 }
