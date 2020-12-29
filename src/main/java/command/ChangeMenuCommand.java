@@ -13,7 +13,8 @@ public class ChangeMenuCommand implements Command{
 
     @Override
     public void execute(){
-        MenuController mc = MenuController.getInstance();
-        mc.changeMenu(menu);
+        MenuController menuController = MenuController.getInstance();
+        menuController.pushCurrentMenu();
+        menuController.changeMenu(menu);
     }
 }

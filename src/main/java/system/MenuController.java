@@ -46,7 +46,6 @@ public class MenuController{
     }
 
     public void changeMenu(Menu menu){
-        menuHistory.push(currentMenu);
         currentMenu = menu;
         currentValidator = menu.getCommandValidator();
     }
@@ -94,7 +93,11 @@ public class MenuController{
     }
 
     public Menu popLatestMenu(){
-        return menuHistory.pop();
+        return menuHistory.empty() ? null : menuHistory.pop();
+    }
+
+    public void pushCurrentMenu(){
+        menuHistory.push(currentMenu);
     }
 
     private void clearScreen(){
