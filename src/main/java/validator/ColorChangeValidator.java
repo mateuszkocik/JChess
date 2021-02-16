@@ -19,7 +19,7 @@ public class ColorChangeValidator implements CommandValidator{
                 .stream(ColoredElement.values())
                 .map(ColoredElement::toString)
                 .collect(Collectors.toList())
-                .contains(s.toUpperCase());
+                .contains(s);
     }
 
     private boolean stringIsColor(String s){
@@ -27,7 +27,7 @@ public class ColorChangeValidator implements CommandValidator{
                 .stream(Color.values())
                 .map(Color::toString)
                 .collect(Collectors.toList())
-                .contains(s.toUpperCase());
+                .contains(s);
     }
 
     @Override
