@@ -2,10 +2,11 @@ package command;
 
 import menu.Menu;
 import system.MenuController;
+import system.MenuHistory;
 
 public class ChangeMenuCommand implements Command{
 
-    private Menu menu;
+    private final Menu menu;
 
     public ChangeMenuCommand(Menu menu){
         this.menu = menu;
@@ -14,7 +15,7 @@ public class ChangeMenuCommand implements Command{
     @Override
     public void execute(){
         MenuController menuController = MenuController.getInstance();
-        menuController.pushCurrentMenu();
+        MenuHistory.getInstance().addMenuToHistory(menuController.getCurrentMenu());
         menuController.changeMenu(menu);
     }
 }

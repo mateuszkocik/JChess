@@ -8,9 +8,7 @@ import menu.Menu;
 import menu.WelcomeMenu;
 import validator.CommandValidator;
 import validator.GlobalCommandValidator;
-
 import java.util.Scanner;
-import java.util.Stack;
 
 public class MenuController{
 
@@ -20,13 +18,11 @@ public class MenuController{
     private Menu currentMenu;
     private CommandValidator currentValidator;
     private final ColorFormatter colorFormatter;
-    private Stack<Menu> menuHistory;
+
 
     public MenuController(){
         this.scanner = new Scanner(System.in);
         this.colorFormatter = new ColorFormatter();
-        colorFormatter.displayDefaultColors();
-        this.menuHistory = new Stack<>();
     }
 
     public static MenuController getInstance(){
@@ -92,14 +88,6 @@ public class MenuController{
         return new GlobalCommandValidator().validate(command);
     }
 
-    public Menu popLatestMenu(){
-        return menuHistory.empty() ? null : menuHistory.pop();
-    }
-
-    public void pushCurrentMenu(){
-        menuHistory.push(currentMenu);
-    }
-
     private void clearScreen(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -107,5 +95,9 @@ public class MenuController{
 
     public ColorFormatter getColorFormatter(){
         return colorFormatter;
+    }
+
+    public Menu getCurrentMenu(){
+        return currentMenu;
     }
 }
