@@ -3,17 +3,11 @@ package menu;
 import colors.*;
 import command.ChangeColorCommand;
 import command.Command;
-import system.MenuController;
+import system.ElementPainter;
 import validator.ColorChangeValidator;
 import validator.CommandValidator;
 
 public class ColorSettingsMenu implements Menu{
-
-    private final ColorFormatter colorFormatter;
-
-    public ColorSettingsMenu(){
-        this.colorFormatter = MenuController.getInstance().getColorFormatter();
-    }
 
     @Override
     public void showContent(){
@@ -30,8 +24,8 @@ public class ColorSettingsMenu implements Menu{
         String formatString = "%-15s\t%-" + loremLen + "s\t%-" + loremLen + "s\n";
         System.out.printf(formatString + '\n', "color", "text", "background");
         for(Color color : Color.values()){
-            String coloredText = colorFormatter.getColoredText(lorem, color);
-            String backgroundColoredText = colorFormatter.getTextWithBackground(lorem, color);
+            String coloredText = ElementPainter.colorText(lorem, color);
+            String backgroundColoredText = ElementPainter.colorBackground(lorem, color);
             System.out.printf(formatString, color, coloredText, backgroundColoredText);
         }
     }

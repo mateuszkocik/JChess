@@ -1,31 +1,21 @@
 package system;
 
-import colors.ColorFormatter;
+import colors.ColoredElement;
 import menu.Menu;
 import menu.WelcomeMenu;
 
 public class MenuController{
 
     private static MenuController instance;
-
+    private final MenuHistory menuHistory;
     private Menu currentMenu;
-    private final ColorFormatter colorFormatter;
-
 
     public MenuController(){
-        this.colorFormatter = new ColorFormatter();
+        this.currentMenu = new WelcomeMenu();
+        this.menuHistory = new MenuHistory();
     }
 
-    public static MenuController getInstance(){
-        if(instance == null){
-            instance = new MenuController();
-            instance.currentMenu = new WelcomeMenu();
-            instance.process();
-        }
-        return instance;
-    }
-
-    private void process(){
+    public void process(){
         showCurrentMenu();
         while(true){
             var command = CommandScanner.getCommand(currentMenu);
@@ -39,7 +29,12 @@ public class MenuController{
     }
 
     public void changeMenu(Menu menu){
+        menuHistory.addMenuToHistory(currentMenu);
         currentMenu = menu;
+    }
+
+    public void backToPreviousMenu(){
+        currentMenu = menuHistory.getPreviousMenu();
     }
 
     private void showCurrentMenu(){
@@ -48,10 +43,9 @@ public class MenuController{
     }
 
     private void showCurrentMenuWithError(){
-        clearScreen();
-        currentMenu.showContent();
+        showCurrentMenu();
         String errorMessage = currentMenu.getCommandValidator().getError();
-        System.out.println(colorFormatter.getColoredError(errorMessage));
+        System.out.println(ElementPainter.colorElement(errorMessage, ColoredElement.ERROR));
     }
 
     private void clearScreen(){
@@ -59,11 +53,10 @@ public class MenuController{
         System.out.flush();
     }
 
-    public ColorFormatter getColorFormatter(){
-        return colorFormatter;
-    }
-
-    public Menu getCurrentMenu(){
-        return currentMenu;
+    public static MenuController getInstance(){
+        if(instance == null){
+            instance = new MenuController();
+        }
+        return instance;
     }
 }
