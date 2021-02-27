@@ -1,5 +1,8 @@
 package game;
 
+import static game.BoardParameters.*;
+import static game.BoardParameters.TO_RANK;
+
 public class Coordinates{
 
     private final char file;
@@ -50,5 +53,11 @@ public class Coordinates{
         return new Coordinates((char) (file -1), rank -1);
     }
 
+    public boolean isValid(){
+        return file >= FROM_FILE && file <= TO_FILE && rank >= FROM_RANK && rank <= TO_RANK;
+    }
 
+    public static Coordinates make(char file, int rank){
+        return new Coordinates(file,rank);
+    }
 }
