@@ -23,7 +23,11 @@ public abstract class Piece{
         this.coordinates = new Coordinates(file, rank);
     }
 
-    public abstract List<Coordinates> getAvailableMoves(Chessboard board);
+    public List<Coordinates> getAttackMoves(Chessboard chessboard){
+        return getAvailableMoves(chessboard);
+    }
+
+    public abstract List<Coordinates> getAvailableMoves(Chessboard chessboard);
 
     public Piece move(Coordinates to){
         coordinates = to;
@@ -49,4 +53,5 @@ public abstract class Piece{
     public Team getTeam(){
         return team;
     }
+
 }

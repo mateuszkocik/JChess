@@ -23,7 +23,7 @@ public class Board<T>{
     }
 
     public void remove(Coordinates c){
-        set(c, null);
+        board[getX(c)][getY(c)] = null;
     }
 
     private int getX(Coordinates c){
