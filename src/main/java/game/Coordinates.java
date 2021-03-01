@@ -59,6 +59,10 @@ public class Coordinates{
         return file >= FROM_FILE && file <= TO_FILE && rank >= FROM_RANK && rank <= TO_RANK;
     }
 
+    public static Coordinates makeCoord(char file, int rank){
+        return new Coordinates(file, rank);
+    }
+
     @Override
     public boolean equals(Object o){
         if(this == o) return true;

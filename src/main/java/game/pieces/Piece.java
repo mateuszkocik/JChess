@@ -5,6 +5,7 @@ import game.Coordinates;
 import game.Team;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class Piece{
     private final PieceType type;
@@ -23,19 +24,21 @@ public abstract class Piece{
         this.coordinates = new Coordinates(file, rank);
     }
 
-    public List<Coordinates> getAttackMoves(Chessboard chessboard){
-        return getAvailableMoves(chessboard);
-    }
+    public abstract List<Coordinates> getAttackMoves(Chessboard chessboard);
 
-    public abstract List<Coordinates> getAvailableMoves(Chessboard chessboard);
-
-    public Piece move(Coordinates to){
-        coordinates = to;
-        return this;
+    public List<Coordinates> getAvailableMoves(Chessboard chessboard){
+        return getAttackMoves(chessboard)
+                .stream()
+                .filter(c -> chessboard.isEmptyOrEnemy(c,team))
+                .collect(Collectors.toList());
     }
 
     public Coordinates getCoordinates(){
         return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates){
+        this.coordinates = coordinates;
     }
 
     public PieceType getType(){
