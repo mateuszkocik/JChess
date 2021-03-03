@@ -63,7 +63,6 @@ public class Chessboard extends Board<Piece>{
         var enemyTeamPieces = getTeamPieces(team.getEnemyTeam());
         for(Piece p : enemyTeamPieces){
             var attackMoves = p.getAttackMoves(this);
-            System.out.println(attackMoves);
             if(attackMoves.contains(coordinates))
                 return true;
         }

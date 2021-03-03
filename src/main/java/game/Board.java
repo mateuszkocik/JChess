@@ -18,6 +18,7 @@ public class Board<T>{
     }
 
     public Optional<T> get(Coordinates c){
+        if (!c.isValid()) return Optional.empty();
         T val = board[getX(c)][getY(c)];
         return val == null ? Optional.empty() : Optional.of(val);
     }
