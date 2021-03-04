@@ -11,7 +11,7 @@ public class ColorChangeValidator implements CommandValidator{
     @Override
     public boolean validate(String command){
         var parts = command.split(" ");
-        return parts.length == 2 && stringIsElement(parts[0]) && stringIsColor(parts[1]);
+        return parts.length == 2 && stringIsElement(parts[0].toUpperCase()) && stringIsColor(parts[1].toUpperCase());
     }
 
     private boolean stringIsElement(String s){
