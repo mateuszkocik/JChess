@@ -25,4 +25,14 @@ public abstract class MovedDependentPiece extends Piece{
         this.wasMoved = wasMoved;
     }
 
+    public boolean wasMoved(){
+        return wasMoved;
+    }
+
+    @Override
+    public void move(Coordinates to){
+        super.move(to);
+        wasMoved = true;
+    }
+
 }

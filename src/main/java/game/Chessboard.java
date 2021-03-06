@@ -2,10 +2,7 @@ package game;
 
 import game.pieces.Piece;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static game.Team.*;
 
@@ -22,6 +19,7 @@ public class Chessboard extends Board<Piece>{
 
     @Override
     public void set(Coordinates c, Piece value){
+        remove(c);
         super.set(c, value);
         pieces.get(value.getTeam()).add(value);
     }
@@ -32,12 +30,8 @@ public class Chessboard extends Board<Piece>{
 
     @Override
     public void remove(Coordinates c){
-        var optPiece = get(c);
-        if(optPiece.isPresent()){
-            super.remove(c);
-            var piece = optPiece.get();
-            pieces.get(piece.getTeam()).remove(piece);
-        }
+        super.remove(c);
+        get(c).ifPresent(piece -> pieces.get(piece.getTeam()).remove(piece));
     }
 
     public void remove(Piece value){

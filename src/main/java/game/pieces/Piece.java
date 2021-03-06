@@ -33,12 +33,12 @@ public abstract class Piece{
                 .collect(Collectors.toList());
     }
 
-    public Coordinates getCoordinates(){
-        return coordinates;
+    public void move(Coordinates to){
+        coordinates = to;
     }
 
-    public void setCoordinates(Coordinates coordinates){
-        this.coordinates = coordinates;
+    public Coordinates getCoordinates(){
+        return coordinates;
     }
 
     public PieceType getType(){
