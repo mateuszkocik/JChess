@@ -24,14 +24,14 @@ public class ChessboardBuilder{
         ch.set(new Knight(team, makeCoord('b', rank)));
         ch.set(new Bishop(team, makeCoord('c', rank)));
         ch.set(new Queen(team, makeCoord('d', rank)));
-        ch.set(new Knight(team, makeCoord('e', rank)));
+        ch.set(new King(team, makeCoord('e', rank)));
         ch.set(new Bishop(team, makeCoord('f', rank)));
-        ch.set(new King(team, makeCoord('g', rank)));
+        ch.set(new Knight(team, makeCoord('g', rank)));
         ch.set(new Rook(team, makeCoord('h', rank)));
     }
 
     private static void fillRankWithPawns(Chessboard ch, int rank, Team team){
-        for(char i = FROM_FILE; i < TO_FILE; i++){
+        for(char i = FROM_FILE; i <= TO_FILE; i++){
             ch.set(new Pawn(team, makeCoord(i, rank)));
         }
     }
