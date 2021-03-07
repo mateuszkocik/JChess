@@ -46,8 +46,12 @@ public class ElementPainter{
         switch(element){
             case TEXT:
             case ERROR:
+            case WHITE_PIECES:
+            case BLACK_PIECES:
                 return colorText(text, color);
             case BACKGROUND:
+            case CHESSBOARD1:
+            case CHESSBOARD2:
                 return colorBackground(text, color);
         }
         return null;

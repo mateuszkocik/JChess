@@ -36,6 +36,11 @@ public class ColorProperties{
         return properties.getProperty(element.toString());
     }
 
+    public Color getElementColor(ColoredElement element){
+        String colorString = getProperty(element);
+        return Color.valueOf(colorString);
+    }
+
     public void setProperty(ColoredElement element, Color color){
         properties.setProperty(element.toString(), color.toString());
         save();
