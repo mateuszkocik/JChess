@@ -17,4 +17,8 @@ public class Move{
     public Coordinates getTo(){
         return to;
     }
+
+    public static Move moveOf(char f1, int r1, char f2, int r2){
+        return new Move(new Coordinates(f1, r1), new Coordinates(f2, r2));
+    }
 }

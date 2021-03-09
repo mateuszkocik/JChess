@@ -44,7 +44,6 @@ public class King extends MovedDependentPiece{
             availableMoves.add(coordinates.left().left());
         if(shortCastlingAvailable(chessboard))
             availableMoves.add(coordinates.right().right());
-        System.out.println(availableMoves);
         return availableMoves;
     }
 

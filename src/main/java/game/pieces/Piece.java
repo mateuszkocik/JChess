@@ -57,4 +57,7 @@ public abstract class Piece{
         return team;
     }
 
+    public void setCoordinates(Coordinates coordinates){
+        this.coordinates = coordinates;
+    }
 }

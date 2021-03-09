@@ -6,55 +6,24 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static game.Move.moveOf;
 import static game.Team.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static game.Coordinates.makeCoord;
 
-public class MoveAnalyserTest{
+public class MoveInvokerTest{
 
     private Chessboard chessboard;
-    private MoveAnalyser analyser;
+    private MoveInvoker invoker;
 
     @BeforeEach
     void setUp(){
         chessboard = new Chessboard();
-        analyser = new MoveAnalyser(chessboard);
+        invoker = new MoveInvoker(chessboard);
     }
 
     @Test
-    void validMoveReturnTruePawn(){
-        chessboard.set(new Pawn(WHITE, makeCoord('a', 2)));
-        chessboard.set(new Pawn(BLACK, makeCoord('b', 3)));
-        assertTrue(analyser.validMove(moveOf('a', 2, 'a', 3), WHITE));
-        assertTrue(analyser.validMove(moveOf('a', 2, 'a', 4), WHITE));
-        assertTrue(analyser.validMove(moveOf('a', 2, 'b', 3), WHITE));
-    }
-
-    @Test
-    void validMoveFalseKingUncovered(){
-        chessboard.set(new King(BLACK, makeCoord('e', 4)));
-        chessboard.set(new Pawn(BLACK, makeCoord('d', 5)));
-        chessboard.set(new Bishop(WHITE, makeCoord('b', 7)));
-        assertFalse(analyser.validMove(moveOf('d', 5, 'd', 6), BLACK));
-    }
-
-    @Test
-    void successfulBishopMove() throws IllegalMoveException{
-        chessboard.set(new Bishop(WHITE, makeCoord('a', 2)));
-        analyser.move(moveOf('a', 2, 'b', 3), WHITE);
-    }
-
-    @Test
-    void exceptionThrownWhenIllegalMove(){
-        chessboard.set(new King(BLACK, makeCoord('e', 4)));
-        chessboard.set(new Pawn(BLACK, makeCoord('d', 5)));
-        chessboard.set(new Bishop(WHITE, makeCoord('b', 7)));
-        assertThrows(IllegalMoveException.class, () ->
-                analyser.move(moveOf('d', 5, 'd', 6), BLACK));
-    }
-
-    @Test
-    void teamPiecesUpdatedAfterMove() throws IllegalMoveException{
+    void teamPiecesUpdatedAfterMove(){
         Coordinates coordsBefore = makeCoord('a', 3);
         Pawn pawn = new Pawn(WHITE, coordsBefore);
         chessboard.set(pawn);
@@ -62,20 +31,20 @@ public class MoveAnalyserTest{
         assertEquals(coordsBefore, teamPiecesBefore.get(0).getCoordinates());
         assertEquals(1, teamPiecesBefore.size());
         Coordinates coordsAfter = makeCoord('a', 4);
-        analyser.move(new Move(coordsBefore, coordsAfter), WHITE);
+        invoker.move(new Move(coordsBefore, coordsAfter));
         var teamPiecesAfter = chessboard.getTeamPieces(WHITE);
         assertEquals(coordsAfter, teamPiecesAfter.get(0).getCoordinates());
         assertEquals(1, teamPiecesAfter.size());
     }
 
     @Test
-    void whitePawnPromotion() throws IllegalMoveException{
+    void whitePawnPromotion(){
         Coordinates coordsBefore = makeCoord('a', 7);
         Coordinates coordsAfter = makeCoord('a', 8);
         chessboard.set(new Pawn(WHITE, coordsBefore));
         var teamPieces = chessboard.getTeamPieces(WHITE);
         assertEquals(1, teamPieces.size());
-        analyser.move(new Move(coordsBefore, coordsAfter), WHITE);
+        invoker.move(new Move(coordsBefore, coordsAfter));
         var teamPiecesAfter = chessboard.getTeamPieces(WHITE);
         assertEquals(1, teamPiecesAfter.size());
         Piece queen = teamPiecesAfter.get(0);
@@ -92,7 +61,7 @@ public class MoveAnalyserTest{
         Rook rook = new Rook(WHITE, rookCoords);
         chessboard.set(king);
         chessboard.set(rook);
-        analyser.move(moveOf('e', 1, 'g', 1), WHITE);
+        invoker.move(moveOf('e', 1, 'g', 1));
         var teamPieces = chessboard.getTeamPieces(WHITE);
         assertSame(2, teamPieces.size());
         assertTrue(teamPieces.contains(king));
@@ -106,14 +75,14 @@ public class MoveAnalyserTest{
     }
 
     @Test
-    void longCastling() throws IllegalMoveException{
+    void longCastling(){
         Coordinates kingCoords = makeCoord('e', 8);
         Coordinates rookCoords = makeCoord('a', 8);
         King king = new King(BLACK, kingCoords);
         Rook rook = new Rook(BLACK, rookCoords);
         chessboard.set(king);
         chessboard.set(rook);
-        analyser.move(moveOf('e', 8, 'c', 8), BLACK);
+        invoker.move(moveOf('e', 8, 'c', 8));
         var teamPieces = chessboard.getTeamPieces(BLACK);
         assertSame(2, teamPieces.size());
         assertTrue(teamPieces.contains(king));
@@ -124,9 +93,5 @@ public class MoveAnalyserTest{
         assertEquals(rook, chessboard.get(makeCoord('d', 8)).get());
         assertTrue(king.wasMoved());
         assertTrue(rook.wasMoved());
-    }
-
-    private Move moveOf(char f1, int r1, char f2, int r2){
-        return new Move(makeCoord(f1, r1), makeCoord(f2, r2));
     }
 }

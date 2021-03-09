@@ -30,8 +30,8 @@ public class Chessboard extends Board<Piece>{
 
     @Override
     public void remove(Coordinates c){
-        super.remove(c);
         get(c).ifPresent(piece -> pieces.get(piece.getTeam()).remove(piece));
+        super.remove(c);
     }
 
     public void remove(Piece value){
@@ -66,5 +66,4 @@ public class Chessboard extends Board<Piece>{
     public List<Piece> getTeamPieces(Team team){
         return List.copyOf(pieces.get(team));
     }
-
 }

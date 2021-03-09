@@ -2,59 +2,17 @@ package game;
 
 import game.pieces.*;
 
-import java.util.Optional;
-
 import static game.BoardParameters.*;
 
-public class MoveAnalyser{
+public class MoveInvoker{
 
     private final Chessboard chessboard;
 
-    public MoveAnalyser(Chessboard chessboard){
+    public MoveInvoker(Chessboard chessboard){
         this.chessboard = chessboard;
     }
 
-    public boolean validMove(Move move, Team teamTurn){
-        var pieceOnFromCord = chessboard.get(move.getFrom());
-        if(pieceOnFromCord.isPresent()){
-            Piece pieceToBeMoved = pieceOnFromCord.get();
-            var availableMoves = pieceToBeMoved.getAvailableMoves(chessboard);
-            return pieceToBeMoved.getTeam() == teamTurn &&
-                    availableMoves.contains(move.getTo()) &&
-                    !afterMoveKingChecked(move, teamTurn);
-        }
-        return false;
-    }
-
-
-    private boolean afterMoveKingChecked(Move move, Team team){
-        var optPieceFrom = chessboard.get(move.getFrom());
-        boolean result = false;
-        if(optPieceFrom.isPresent()){
-            Piece pieceFrom = optPieceFrom.get();
-            changePiecePosition(pieceFrom, move.getTo());
-            result = kingIsChecked(team);
-            changePiecePosition(pieceFrom, move.getFrom());
-        }
-        return result;
-    }
-
-    public boolean kingIsChecked(Team team){
-        var optKing = getKing(team);
-        return optKing.isPresent() && optKing.get().isChecked(chessboard);
-    }
-
-    private Optional<King> getKing(Team team){
-        var teamPieces = chessboard.getTeamPieces(team);
-        for(Piece teamPiece : teamPieces){
-            if(teamPiece instanceof King)
-                return Optional.of((King) teamPiece);
-        }
-        return Optional.empty();
-    }
-
-    public void move(Move move, Team teamTurn) throws IllegalMoveException{
-        if(!validMove(move, teamTurn)) throw new IllegalMoveException("Illegal move");
+    public void move(Move move){
         if(specialMove(move)) return;
         Piece piece = chessboard.get(move.getFrom()).get();
         changePiecePosition(piece, move.getTo());
