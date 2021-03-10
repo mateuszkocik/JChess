@@ -34,5 +34,4 @@ public class Board<T>{
     private int getY(Coordinates c){
         return c.getRank() - FROM_RANK;
     }
-
 }

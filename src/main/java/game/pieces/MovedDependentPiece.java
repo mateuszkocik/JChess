@@ -34,5 +34,4 @@ public abstract class MovedDependentPiece extends Piece{
         super.move(to);
         wasMoved = true;
     }
-
 }

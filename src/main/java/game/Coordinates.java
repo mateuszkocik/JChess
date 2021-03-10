@@ -83,5 +83,4 @@ public class Coordinates{
                 ", rank=" + rank +
                 '}';
     }
-
 }

@@ -11,18 +11,25 @@ public class ColorSettingsMenu implements Menu{
 
     @Override
     public void showContent(){
-        System.out.println(
-                "Write command to change color of background, text or error\n" +
-                        "Correct format of command: [text/background/error]  [color]\n\n" +
-                        "List of available colors :\n");
+        System.out.println("To set color value input element and color separated by space from lists below");
+        System.out.println("\nElements:");
+        printListOfElements();
+        System.out.println("\nColors:\n");
         printListOfColors();
+        System.out.println();
+    }
+
+    private void printListOfElements(){
+        for(ColoredElement e : ColoredElement.values()){
+            System.out.println("- " + e.name() + " : " + e.getDescription());
+        }
     }
 
     private void printListOfColors(){
         String lorem = "Lorem ipsum dolor sit amet...";
         int loremLen = lorem.length();
         String formatString = "%-15s\t%-" + loremLen + "s\t%-" + loremLen + "s\n";
-        System.out.printf(formatString + '\n', "color", "text", "background");
+        System.out.printf(formatString + '\n', "color", "text[T]", "background[B]");
         for(Color color : Color.values()){
             String coloredText = ElementPainter.colorText(lorem, color);
             String backgroundColoredText = ElementPainter.colorBackground(lorem, color);

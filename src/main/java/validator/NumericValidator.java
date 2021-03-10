@@ -25,5 +25,4 @@ public class NumericValidator implements CommandValidator{
     public String getError(){
         return "Wrong command, choose number from " + from + " to " + to + "!";
     }
-
 }

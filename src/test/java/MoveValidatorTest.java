@@ -1,5 +1,4 @@
 import game.Chessboard;
-import game.MoveInvoker;
 import game.MoveValidator;
 import game.pieces.Bishop;
 import game.pieces.King;

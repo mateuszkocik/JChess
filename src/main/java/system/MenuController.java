@@ -10,7 +10,7 @@ public class MenuController{
     private final MenuHistory menuHistory;
     private Menu currentMenu;
 
-    public MenuController(){
+    private MenuController(){
         this.currentMenu = new WelcomeMenu();
         this.menuHistory = new MenuHistory();
     }

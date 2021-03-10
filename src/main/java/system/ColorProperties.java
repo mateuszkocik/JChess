@@ -9,7 +9,7 @@ import java.util.Properties;
 public class ColorProperties{
 
     private static ColorProperties instance;
-    private final String COLOR_FILENAME = ".jchess-color-settings";
+    private final String COLOR_FILENAME = ".JChess-color-settings";
     private final Properties properties;
 
     public ColorProperties(){

@@ -87,5 +87,4 @@ public class King extends MovedDependentPiece{
     public boolean isChecked(Chessboard chessboard){
         return chessboard.squareIsAttackedByEnemy(coordinates, team);
     }
-
 }

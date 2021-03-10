@@ -1,7 +1,6 @@
 package command;
 
 import system.CommandScanner;
-import system.MenuController;
 
 public class QuitCommand implements Command{
 

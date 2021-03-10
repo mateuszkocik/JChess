@@ -20,5 +20,4 @@ public class MenuHistory{
     public void addMenuToHistory(Menu menu){
         history.push(menu);
     }
-
 }

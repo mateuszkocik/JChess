@@ -51,5 +51,4 @@ public class Bishop extends Piece{
                 .filter(Coordinates::isValid)
                 .collect(Collectors.toList());
     }
-
 }

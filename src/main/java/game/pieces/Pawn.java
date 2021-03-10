@@ -61,5 +61,4 @@ public class Pawn extends MovedDependentPiece{
     private Coordinates getForwardCoordinates(Coordinates coordinates){
         return team == Team.WHITE ? coordinates.top() : coordinates.bottom();
     }
-
 }

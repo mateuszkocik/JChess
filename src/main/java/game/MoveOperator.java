@@ -2,8 +2,8 @@ package game;
 
 public class MoveOperator{
 
-    private MoveInvoker moveInvoker;
-    private MoveValidator moveValidator;
+    private final MoveInvoker moveInvoker;
+    private final MoveValidator moveValidator;
 
     public MoveOperator(Chessboard chessboard){
         this.moveInvoker = new MoveInvoker(chessboard);

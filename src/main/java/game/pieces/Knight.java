@@ -33,5 +33,4 @@ public class Knight extends Piece{
                 .filter(Coordinates::isValid)
                 .collect(Collectors.toList());
     }
-
 }

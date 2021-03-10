@@ -59,5 +59,4 @@ public class Rook extends MovedDependentPiece{
                 .filter(Coordinates::isValid)
                 .collect(Collectors.toList());
     }
-
 }

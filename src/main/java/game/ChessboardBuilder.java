@@ -11,7 +11,7 @@ public class ChessboardBuilder{
     public static Chessboard buildStandardChessboard(){
         Chessboard ch = new Chessboard();
         fillFirstRank(ch, WHITE);
-        fillFirstRank(ch,BLACK);
+        fillFirstRank(ch, BLACK);
         fillRankWithPawns(ch, 2, WHITE);
         fillRankWithPawns(ch, 7, BLACK);
 

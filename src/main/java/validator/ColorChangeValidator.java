@@ -32,6 +32,6 @@ public class ColorChangeValidator implements CommandValidator{
 
     @Override
     public String getError(){
-        return "Command must have format: [text/background/error] [color] e.g. text YELLOW";
+        return "Command must have format: element color e.g. text YELLOW";
     }
 }

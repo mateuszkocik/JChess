@@ -29,7 +29,7 @@ public abstract class Piece{
     public List<Coordinates> getAvailableMoves(Chessboard chessboard){
         return getAttackMoves(chessboard)
                 .stream()
-                .filter(c -> chessboard.isEmptyOrEnemy(c,team))
+                .filter(c -> chessboard.isEmptyOrEnemy(c, team))
                 .collect(Collectors.toList());
     }
 

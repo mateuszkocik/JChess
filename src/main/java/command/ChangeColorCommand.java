@@ -17,7 +17,7 @@ public class ChangeColorCommand implements Command{
 
     @Override
     public void execute(){
-        ColorProperties.getInstance().setProperty(element,color);
+        ColorProperties.getInstance().setProperty(element, color);
         ElementPainter.printDefaultColorCodes();
     }
 }

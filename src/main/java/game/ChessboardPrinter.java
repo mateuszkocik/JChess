@@ -26,6 +26,7 @@ public class ChessboardPrinter{
 
     private static void printChessboardSquareLine(Chessboard ch, int rank){
         for(int i = 0; i < SQUARE_HEIGHT; i++){
+            System.out.print('\t');
             for(char file = FROM_FILE; file <= TO_FILE; file++){
                 Color backgroundColor = getSquareColor(file, rank);
                 if(i == SQUARE_HEIGHT / 2){
@@ -76,6 +77,7 @@ public class ChessboardPrinter{
     }
 
     private static void printFileLine(){
+        System.out.print('\t');
         for(char i = FROM_FILE; i <= TO_FILE; i++){
             System.out.print(getTextBetweenSpaces(String.valueOf(i)));
         }
