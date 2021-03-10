@@ -1,9 +1,12 @@
 package game;
 
 public enum GameStatus{
-    WHITE_TURN,
-    BLACK_TURN,
+    ONGOING,
     WHITE_WON,
     BLACK_WON,
-    DRAW
+    DRAW;
+
+    public static GameStatus winnerOfTeam(Team team){
+        return team == Team.WHITE ? WHITE_WON : BLACK_WON;
+    }
 }
