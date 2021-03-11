@@ -1,9 +1,9 @@
-package game;
+package game.chessboard;
 
 import java.lang.reflect.Array;
 import java.util.Optional;
 
-import static game.BoardParameters.*;
+import static game.chessboard.BoardParameters.*;
 
 public class Board<T>{
     private final T[][] board;

@@ -1,6 +1,8 @@
 package validator;
 
 import game.*;
+import game.chessboard.Coordinates;
+import game.move.Move;
 
 public class GameValidator implements CommandValidator{
 

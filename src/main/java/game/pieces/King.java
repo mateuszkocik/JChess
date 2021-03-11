@@ -1,7 +1,7 @@
 package game.pieces;
 
-import game.Chessboard;
-import game.Coordinates;
+import game.chessboard.Chessboard;
+import game.chessboard.Coordinates;
 import game.Team;
 
 import java.util.List;

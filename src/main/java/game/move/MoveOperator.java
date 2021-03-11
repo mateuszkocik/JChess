@@ -1,4 +1,7 @@
-package game;
+package game.move;
+
+import game.Team;
+import game.chessboard.Chessboard;
 
 public class MoveOperator{
 

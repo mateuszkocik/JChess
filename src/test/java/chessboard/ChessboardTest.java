@@ -1,7 +1,7 @@
 package chessboard;
 
-import game.Chessboard;
-import game.Coordinates;
+import game.chessboard.Chessboard;
+import game.chessboard.Coordinates;
 import game.Team;
 import game.pieces.Pawn;
 import game.pieces.Piece;

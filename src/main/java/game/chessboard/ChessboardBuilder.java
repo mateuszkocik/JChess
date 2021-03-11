@@ -1,10 +1,11 @@
-package game;
+package game.chessboard;
 
+import game.Team;
 import game.pieces.*;
 
-import static game.BoardParameters.*;
+import static game.chessboard.BoardParameters.*;
 import static game.Team.*;
-import static game.Coordinates.makeCoord;
+import static game.chessboard.Coordinates.makeCoord;
 
 public class ChessboardBuilder{
 

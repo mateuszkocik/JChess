@@ -1,7 +1,7 @@
 package pieces;
 
-import game.Chessboard;
-import game.Coordinates;
+import game.chessboard.Chessboard;
+import game.chessboard.Coordinates;
 import game.pieces.Piece;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static game.Coordinates.makeCoord;
+import static game.chessboard.Coordinates.makeCoord;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

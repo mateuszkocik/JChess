@@ -1,4 +1,4 @@
-package game;
+package game.move;
 
 public class IllegalMoveException extends Exception{
 

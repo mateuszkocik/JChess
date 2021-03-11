@@ -1,6 +1,6 @@
 package game.pieces;
 
-import game.Coordinates;
+import game.chessboard.Coordinates;
 import game.Team;
 
 public abstract class MovedDependentPiece extends Piece{

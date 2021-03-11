@@ -1,14 +1,16 @@
-import game.Chessboard;
-import game.IllegalMoveException;
-import game.MoveOperator;
+package move;
+
+import game.chessboard.Chessboard;
+import game.move.IllegalMoveException;
+import game.move.MoveOperator;
 import game.pieces.Bishop;
 import game.pieces.King;
 import game.pieces.Pawn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static game.Coordinates.makeCoord;
-import static game.Move.moveOf;
+import static game.chessboard.Coordinates.makeCoord;
+import static game.move.Move.moveOf;
 import static game.Team.BLACK;
 import static game.Team.WHITE;
 import static org.junit.jupiter.api.Assertions.assertThrows;

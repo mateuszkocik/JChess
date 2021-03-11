@@ -1,4 +1,4 @@
-package game;
+package game.chessboard;
 
 public class BoardParameters{
     public static final int SIZE = 8;

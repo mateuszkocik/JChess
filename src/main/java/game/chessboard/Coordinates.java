@@ -1,9 +1,9 @@
-package game;
+package game.chessboard;
 
 import java.util.Objects;
 
-import static game.BoardParameters.*;
-import static game.BoardParameters.TO_RANK;
+import static game.chessboard.BoardParameters.*;
+import static game.chessboard.BoardParameters.TO_RANK;
 
 public class Coordinates{
 

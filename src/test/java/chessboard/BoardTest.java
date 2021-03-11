@@ -1,7 +1,7 @@
 package chessboard;
 
-import game.Board;
-import game.Coordinates;
+import game.chessboard.Board;
+import game.chessboard.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
 package command;
 
 import game.Game;
-import game.Move;
+import game.move.Move;
 
 public class MoveCommand implements Command{
 

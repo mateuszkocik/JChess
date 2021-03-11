@@ -1,5 +1,11 @@
 package game;
 
+import game.chessboard.Chessboard;
+import game.chessboard.ChessboardBuilder;
+import game.move.IllegalMoveException;
+import game.move.Move;
+import game.move.MoveOperator;
+import game.move.MoveValidator;
 import game.pieces.Bishop;
 import game.pieces.King;
 import game.pieces.Knight;

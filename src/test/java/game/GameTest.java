@@ -1,4 +1,8 @@
+package game;
+
 import game.*;
+import game.chessboard.Chessboard;
+import game.move.Move;
 import game.pieces.Bishop;
 import game.pieces.King;
 import game.pieces.Pawn;
@@ -8,8 +12,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 import static game.Team.*;
-import static game.Coordinates.makeCoord;
-import static game.Move.moveOf;
+import static game.chessboard.Coordinates.makeCoord;
+import static game.move.Move.moveOf;
 import static game.GameStatus.*;
 import static org.junit.jupiter.api.Assertions.*;
 

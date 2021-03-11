@@ -1,8 +1,11 @@
-package game;
+package game.move;
 
+import game.chessboard.Coordinates;
+import game.Team;
+import game.chessboard.Chessboard;
 import game.pieces.*;
 
-import static game.BoardParameters.*;
+import static game.chessboard.BoardParameters.*;
 
 public class MoveInvoker{
 

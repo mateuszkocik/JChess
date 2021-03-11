@@ -1,5 +1,8 @@
-package game;
+package game.move;
 
+import game.chessboard.Coordinates;
+import game.Team;
+import game.chessboard.Chessboard;
 import game.pieces.King;
 import game.pieces.Piece;
 

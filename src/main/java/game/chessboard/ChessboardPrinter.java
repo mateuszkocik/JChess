@@ -1,13 +1,14 @@
-package game;
+package game.chessboard;
 
 import colors.Color;
+import game.Team;
 import game.pieces.Piece;
 import system.ColorProperties;
 import system.ElementPainter;
 
 import java.util.Collections;
 
-import static game.BoardParameters.*;
+import static game.chessboard.BoardParameters.*;
 import static colors.ColoredElement.*;
 import static game.Team.*;
 

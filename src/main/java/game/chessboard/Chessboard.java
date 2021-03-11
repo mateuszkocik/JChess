@@ -1,5 +1,6 @@
-package game;
+package game.chessboard;
 
+import game.Team;
 import game.pieces.Piece;
 
 import java.util.*;

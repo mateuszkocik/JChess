@@ -1,15 +1,20 @@
+package move;
 
-import game.*;
+import game.chessboard.Chessboard;
+import game.chessboard.Coordinates;
+import game.move.IllegalMoveException;
+import game.move.Move;
+import game.move.MoveInvoker;
 import game.pieces.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static game.Move.moveOf;
+import static game.move.Move.moveOf;
 import static game.Team.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static game.Coordinates.makeCoord;
+import static game.chessboard.Coordinates.makeCoord;
 
 public class MoveInvokerTest{
 

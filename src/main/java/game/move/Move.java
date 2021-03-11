@@ -1,4 +1,6 @@
-package game;
+package game.move;
+
+import game.chessboard.Coordinates;
 
 public class Move{
 

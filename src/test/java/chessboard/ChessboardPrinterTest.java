@@ -1,8 +1,13 @@
+package chessboard;
+
 import game.*;
+import game.chessboard.Chessboard;
+import game.chessboard.ChessboardBuilder;
+import game.chessboard.Coordinates;
 import game.pieces.King;
 import org.junit.jupiter.api.Test;
 
-import static game.ChessboardPrinter.print;
+import static game.chessboard.ChessboardPrinter.print;
 
 public class ChessboardPrinterTest{
 
